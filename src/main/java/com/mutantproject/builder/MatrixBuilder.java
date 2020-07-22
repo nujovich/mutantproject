@@ -1,7 +1,7 @@
 package com.mutantproject.builder;
 
 public class MatrixBuilder {
-    public static char[][] buildMaxtrix(String[] dna, char[][] matrixDna) {
+    public static char[][] buildMaxtrix(String[] dna, char[][] matrixDna, int matrixLength) {
         int i = 0;
         do {
             for (String str : dna) {
@@ -11,7 +11,7 @@ public class MatrixBuilder {
                 }
                 i=+1;
             }
-        } while (i < 6);
+        } while (i < matrixLength);
         return matrixDna;
     }
 }
