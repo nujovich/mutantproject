@@ -26,13 +26,14 @@ public class ListsBuilder {
         int itemsInDiagonal = 0;
         int midPoint = (diagonalLines / 2) + 1;
 
+        //Run the matrix from top to bottom starting at index[0,0]
         for (int i = 1; i <= diagonalLines; i++) {
             StringBuilder sb = new StringBuilder();
             int rowIndex;
             int columnIndex;
             if (i <= midPoint) {
                 itemsInDiagonal++;
-                for (int j = 0; j < itemsInDiagonal && j!=-1; j++) {
+                for (int j = 0; j < itemsInDiagonal; j++) {
                     rowIndex = (i - j) - 1;
                     columnIndex = j;
                     sb.append(matrixDna[rowIndex][columnIndex]);
@@ -49,6 +50,34 @@ public class ListsBuilder {
                 partialDna.add(sb.toString());
             } 
         }
+
+        itemsInDiagonal = 0;
+
+        //Run the matrix from bottom to top starting at index [length, 0]
+        for (int i = 1; i <= diagonalLines; i++) {
+            StringBuilder sb = new StringBuilder();
+            int rowIndex;
+            int columnIndex;
+            if (i <= midPoint) {
+                itemsInDiagonal++;
+                for (int j = 0; j < itemsInDiagonal; j++) {
+                    rowIndex = (length - i) + j;
+                    columnIndex = j;
+                    sb.append(matrixDna[rowIndex][columnIndex]);
+                }
+            } else {
+                itemsInDiagonal--;
+                for (int j = 0; j < itemsInDiagonal; j++) {
+                    rowIndex = j;
+                    columnIndex = (i - length) + j;
+                    sb.append(matrixDna[rowIndex][columnIndex]);
+                }
+            }
+            if (i != diagonalLines) {
+                partialDna.add(sb.toString());
+            } 
+        }
+        
         return partialDna;
     }
 }
