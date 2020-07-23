@@ -27,33 +27,18 @@ public class ListsBuilder {
         int midPoint = (diagonalLines / 2) + 1;
 
         //Run the matrix from top to bottom starting at index[0,0]
-        for (int i = 1; i <= diagonalLines; i++) {
-            StringBuilder sb = new StringBuilder();
-            int rowIndex;
-            int columnIndex;
-            if (i <= midPoint) {
-                itemsInDiagonal++;
-                for (int j = 0; j < itemsInDiagonal; j++) {
-                    rowIndex = (i - j) - 1;
-                    columnIndex = j;
-                    sb.append(matrixDna[rowIndex][columnIndex]);
-                }
-            } else {
-                itemsInDiagonal--;
-                for (int j = 0; j < itemsInDiagonal; j++) {
-                    rowIndex = (length - 1) - j;
-                    columnIndex = (i - length) + j;
-                    sb.append(matrixDna[rowIndex][columnIndex]);
-                }
-            }
-            if (i <= diagonalLines) {
-                partialDna.add(sb.toString());
-            } 
-        }
-
+        partialDna = buildFromTopLeftToBottom(matrixDna, partialDna, length, diagonalLines, itemsInDiagonal, midPoint);
+        //Setting the count to zero again
         itemsInDiagonal = 0;
 
         //Run the matrix from bottom to top starting at index [length, 0]
+        partialDna = buildFromBottomRightToTop(matrixDna, partialDna, length, diagonalLines, itemsInDiagonal, midPoint);
+        
+        return partialDna;
+    }
+
+    private static List<String> buildFromBottomRightToTop(char[][] matrixDna, List<String> partialDna, int length, int diagonalLines,
+            int itemsInDiagonal, int midPoint) {
         for (int i = 1; i <= diagonalLines; i++) {
             StringBuilder sb = new StringBuilder();
             int rowIndex;
@@ -73,11 +58,35 @@ public class ListsBuilder {
                     sb.append(matrixDna[rowIndex][columnIndex]);
                 }
             }
-            if (i <= diagonalLines) {
-                partialDna.add(sb.toString());
-            } 
+            partialDna.add(sb.toString());
+
         }
-        
+        return partialDna;
+    }
+
+    private static List<String> buildFromTopLeftToBottom(char[][] matrixDna, List<String> partialDna, int length, int diagonalLines,
+            int itemsInDiagonal, int midPoint) {
+        for (int i = 1; i <= diagonalLines; i++) {
+            StringBuilder sb = new StringBuilder();
+            int rowIndex;
+            int columnIndex;
+            if (i <= midPoint) {
+                itemsInDiagonal++;
+                for (int j = 0; j < itemsInDiagonal; j++) {
+                    rowIndex = (i - j) - 1;
+                    columnIndex = j;
+                    sb.append(matrixDna[rowIndex][columnIndex]);
+                }
+            } else {
+                itemsInDiagonal--;
+                for (int j = 0; j < itemsInDiagonal; j++) {
+                    rowIndex = (length - 1) - j;
+                    columnIndex = (i - length) + j;
+                    sb.append(matrixDna[rowIndex][columnIndex]);
+                }
+            }
+            partialDna.add(sb.toString());
+        }
         return partialDna;
     }
 }

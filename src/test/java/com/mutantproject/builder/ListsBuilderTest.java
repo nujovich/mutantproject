@@ -1,12 +1,12 @@
 package com.mutantproject.builder;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ListsBuilderTest {
 
@@ -17,7 +17,7 @@ public class ListsBuilderTest {
     private List<String> dnaVertical;
     private List<String> dnaDiagonal;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         dnaVertical = Arrays.asList("CCGA", "CTGA", "CATT", "TTTT");
         dnaDiagonal = Arrays.asList("C", "CC", "GTC", "AGAT", "ATT", "TT", "T", "A", "GA", "CGT", "CTTT", "CAT", "CT", "T");

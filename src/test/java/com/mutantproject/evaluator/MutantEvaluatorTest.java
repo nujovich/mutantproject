@@ -1,14 +1,13 @@
 package com.mutantproject.evaluator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MutantEvaluatorTest {
 
@@ -17,7 +16,7 @@ public class MutantEvaluatorTest {
     private List<String> dnaNotNxNMatrix;
     private List<String> dnaWrongInput;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         dnaNotAMatch = Arrays.asList("CCCT", "CTAT", "GGTT", "AATT");
         dnaMatch = Arrays.asList("CCCC", "CTAT", "GGTT", "AATT");
@@ -43,6 +42,9 @@ public class MutantEvaluatorTest {
     @Test
     public void checkMatrixLength_shouldReturnFalse() {
         assertFalse(MutantEvaluator.checkMatrixLength(dnaNotNxNMatrix));
+    }
+
+    private void assertFalse(boolean checkMatrixLength) {
     }
 
     @Test
