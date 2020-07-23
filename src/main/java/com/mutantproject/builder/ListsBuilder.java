@@ -46,7 +46,7 @@ public class ListsBuilder {
                     sb.append(matrixDna[rowIndex][columnIndex]);
                 }
             }
-            if (i != diagonalLines) {
+            if (i <= diagonalLines) {
                 partialDna.add(sb.toString());
             } 
         }
@@ -73,7 +73,7 @@ public class ListsBuilder {
                     sb.append(matrixDna[rowIndex][columnIndex]);
                 }
             }
-            if (i != diagonalLines) {
+            if (i <= diagonalLines) {
                 partialDna.add(sb.toString());
             } 
         }
