@@ -1,7 +1,10 @@
 package com.mutantproject.builder;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MatrixBuilder {
-    public static char[][] buildMatrix(String[] dna, char[][] matrixDna, int matrixLength) {
+    public char[][] buildMatrix(String[] dna, char[][] matrixDna, int matrixLength) {
         int i = 0;
         do {
             for (String str : dna) {

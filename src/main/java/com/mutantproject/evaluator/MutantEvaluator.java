@@ -4,20 +4,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MutantEvaluator {
 
-    public static int checkMutantGen(List<String> dna) {
+    public int checkMutantGen(List<String> dna) {
         int result = dna.stream().filter(str -> str.matches(".*(A{4}|T{4}|G{4}|C{4}).*"))
         .collect(Collectors.toList()).size();
         return result;
     }
 
-    public static boolean checkMutantInput(List<String> dna) {
-        boolean hasWrongInput = dna.stream().anyMatch(str -> str.matches(".*[^TAGC].*")) ? true : false; 
-        return hasWrongInput;
+    public boolean checkMutantInput(List<String> dna) {
+        return dna.stream().anyMatch(str -> str.matches(".*[^TAGC].*"));
     }
 
-    public static boolean checkMatrixLength(List<String> dna) {
+    public boolean checkMatrixLength(List<String> dna) {
         String matchResult = dna.stream().filter(str -> str.length() != dna.size()).findAny().orElse(null);
         boolean isMatrixNxN = Objects.isNull(matchResult) ? true : false;
         return isMatrixNxN;

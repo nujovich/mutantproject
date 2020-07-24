@@ -1,11 +1,15 @@
 package com.mutantproject.builder;
 
 import java.util.List;
+
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
+@Component
 public class ListsBuilder {
 
-    public static List<String> buildVerticalListsFromMatrix(char[][] matrixDna) {
+    public List<String> buildVerticalListsFromMatrix(char[][] matrixDna) {
         List<String> partialDna = new ArrayList<>();
         for (int i = 0; i < matrixDna.length; i++) {
             int iterator = 0;
@@ -19,7 +23,7 @@ public class ListsBuilder {
         return partialDna;
     }
 
-    public static List<String> buildDiagonalListsFromMatrix(char[][] matrixDna) {
+    public List<String> buildDiagonalListsFromMatrix(char[][] matrixDna) {
         List<String> partialDna = new ArrayList<>();
         int length = matrixDna.length;
         int diagonalLines = (length*2) - 1;
@@ -37,7 +41,7 @@ public class ListsBuilder {
         return partialDna;
     }
 
-    private static List<String> buildFromBottomRightToTop(char[][] matrixDna, List<String> partialDna, int length, int diagonalLines,
+    private List<String> buildFromBottomRightToTop(char[][] matrixDna, List<String> partialDna, int length, int diagonalLines,
             int itemsInDiagonal, int midPoint) {
         for (int i = 1; i <= diagonalLines; i++) {
             StringBuilder sb = new StringBuilder();
@@ -64,7 +68,7 @@ public class ListsBuilder {
         return partialDna;
     }
 
-    private static List<String> buildFromTopLeftToBottom(char[][] matrixDna, List<String> partialDna, int length, int diagonalLines,
+    private List<String> buildFromTopLeftToBottom(char[][] matrixDna, List<String> partialDna, int length, int diagonalLines,
             int itemsInDiagonal, int midPoint) {
         for (int i = 1; i <= diagonalLines; i++) {
             StringBuilder sb = new StringBuilder();

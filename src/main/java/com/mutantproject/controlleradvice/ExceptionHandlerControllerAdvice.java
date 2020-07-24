@@ -19,6 +19,7 @@ public class ExceptionHandlerControllerAdvice {
         final ExceptionResponse ex = new ExceptionResponse();
         ex.setErrorMessage(exception.getMessage());
         ex.setResourceRequested(request.getContextPath());
+        ex.setErrorCode(HttpStatus.BAD_REQUEST.value());
         return ex;
     }
 
