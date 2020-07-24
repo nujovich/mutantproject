@@ -9,6 +9,7 @@ import com.mutantproject.evaluator.MutantEvaluator;
 public class MutantValidator {
 
     public static boolean isMutant(List<String> dna) throws IllegalArgumentException {
+        int result = 0;
         if(dna.isEmpty()) {
             throw new IllegalArgumentException("Dna Input is null or empty");
         } else if(MutantEvaluator.checkMutantInput(dna)) {
@@ -24,12 +25,11 @@ public class MutantValidator {
             List<String> dnaVertical = ListsBuilder.buildVerticalListsFromMatrix(matrixDna);
             List<String> dnaDiagonal = ListsBuilder.buildDiagonalListsFromMatrix(matrixDna);
 
-            int resultHorizontal = MutantEvaluator.checkMutantGen(dna);
-            int resultVertical = MutantEvaluator.checkMutantGen(dnaVertical);
-            int resultDiagonal = MutantEvaluator.checkMutantGen(dnaDiagonal);
-
-            boolean isMutant = (resultHorizontal >= 1 | resultDiagonal >= 1 | resultVertical >= 1) ? true : false;
-            return isMutant;
+            result += MutantEvaluator.checkMutantGen(dna);
+            result += MutantEvaluator.checkMutantGen(dnaVertical);
+            result += MutantEvaluator.checkMutantGen(dnaDiagonal);
+            return (result > 1);
+    
         }
     }
     
