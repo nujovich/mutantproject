@@ -2,25 +2,25 @@ package com.mutantproject.validator;
 
 import java.util.List;
 
-import javax.inject.Inject;
 
 import com.mutantproject.builder.ListsBuilder;
 import com.mutantproject.builder.MatrixBuilder;
 import com.mutantproject.evaluator.MutantEvaluator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class MutantValidator {
 
-    @Inject
+    @Autowired
     private MutantEvaluator mutantEvaluator;
 
-    @Inject
+    @Autowired
     private ListsBuilder listsBuilder;
 
-    @Inject
+    @Autowired
     private MatrixBuilder matrixBuilder;
     
     public boolean isMutant(List<String> dna) throws IllegalArgumentException {
