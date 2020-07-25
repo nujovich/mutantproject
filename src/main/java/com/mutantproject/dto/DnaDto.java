@@ -6,6 +6,10 @@ public class DnaDto {
 
     private List<String> dna;
 
+    public DnaDto() {
+        super();
+
+    }
     public DnaDto(List<String> dna) {
         this.dna = dna;
 	}

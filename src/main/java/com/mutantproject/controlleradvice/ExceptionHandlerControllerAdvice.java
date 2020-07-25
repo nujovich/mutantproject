@@ -18,7 +18,6 @@ public class ExceptionHandlerControllerAdvice {
             final WebRequest request) {
         final ExceptionResponse ex = new ExceptionResponse();
         ex.setErrorMessage(exception.getMessage());
-        ex.setResourceRequested(request.getContextPath());
         ex.setErrorCode(HttpStatus.BAD_REQUEST.value());
         return ex;
     }
@@ -28,7 +27,6 @@ public class ExceptionHandlerControllerAdvice {
     public @ResponseBody ExceptionResponse handleException(final Exception exception, final WebRequest request) {
         final ExceptionResponse ex = new ExceptionResponse();
             ex.setErrorMessage(exception.getMessage());
-            ex.setResourceRequested(request.getContextPath());
             ex.setErrorCode(HttpStatus.FORBIDDEN.value());
             return ex;
     }
