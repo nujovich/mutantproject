@@ -16,8 +16,7 @@ public class MutantServiceImpl implements MutantServiceIF {
 
     @Override
     public boolean isMutant(List<String> dna) {
-        boolean isMutant = mutantValidator.isMutant(dna);
-        return isMutant;
+        return mutantValidator.isMutant(dna);
     }
 
 

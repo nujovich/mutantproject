@@ -16,7 +16,8 @@ public class MutantEvaluator {
     }
 
     public boolean checkMutantInput(List<String> dna) {
-        return dna.stream().anyMatch(str -> str.matches(".*[^TAGC].*"));
+        return dna.stream().anyMatch(str -> str.matches(".*[^TAGC].*")); 
+
     }
 
     public boolean checkMatrixLength(List<String> dna) {

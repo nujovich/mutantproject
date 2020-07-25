@@ -29,6 +29,7 @@ public class ExceptionHandlerControllerAdvice {
         final ExceptionResponse ex = new ExceptionResponse();
             ex.setErrorMessage(exception.getMessage());
             ex.setResourceRequested(request.getContextPath());
+            ex.setErrorCode(HttpStatus.FORBIDDEN.value());
             return ex;
     }
     

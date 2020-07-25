@@ -6,7 +6,11 @@ public class DnaDto {
 
     private List<String> dna;
 
-    public List<String> getDna() {
+    public DnaDto(List<String> dna) {
+        this.dna = dna;
+	}
+
+	public List<String> getDna() {
         return dna;
     }
 
