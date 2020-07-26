@@ -10,9 +10,8 @@ import org.springframework.stereotype.Component;
 public class MutantEvaluator {
 
     public int checkMutantGen(List<String> dna) {
-        int result = dna.stream().filter(str -> str.matches(".*(A{4}|T{4}|G{4}|C{4}).*"))
+        return dna.stream().filter(str -> str.matches(".*(A{4}|T{4}|G{4}|C{4}).*"))
         .collect(Collectors.toList()).size();
-        return result;
     }
 
     public boolean checkMutantInput(List<String> dna) {
@@ -22,7 +21,6 @@ public class MutantEvaluator {
 
     public boolean checkMatrixLength(List<String> dna) {
         String matchResult = dna.stream().filter(str -> str.length() != dna.size()).findAny().orElse(null);
-        boolean isMatrixNxN = Objects.isNull(matchResult) ? true : false;
-        return isMatrixNxN;
+        return Objects.isNull(matchResult);
     }
 }

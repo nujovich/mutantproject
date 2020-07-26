@@ -30,5 +30,14 @@ public class ExceptionHandlerControllerAdvice {
             ex.setErrorCode(HttpStatus.FORBIDDEN.value());
             return ex;
     }
+
+    @ExceptionHandler(ArithmeticException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public @ResponseBody ExceptionResponse handleArithmeticException(final Exception exception, final WebRequest request) {
+        final ExceptionResponse ex = new ExceptionResponse();
+            ex.setErrorMessage(exception.getMessage());
+            ex.setErrorCode(HttpStatus.BAD_REQUEST.value());
+            return ex;
+    }
     
 }
