@@ -11,10 +11,11 @@ Mutant is spring boot application to help Magneto in finding mutants to fight th
     - JUnit 5 with Mockito
     - Log4j2 Lib
     - Jacoco Reports Lib
+    - AWS Cloud
 
 ## Usage
 
-# Run application locally
+### Run application locally
 
 Proceed to clone [GIT](https://github.com/nujovich/mutantproject) into a local directory
 
@@ -33,7 +34,8 @@ If you want to see the JaCoCo reports:
 mvn install
 mvn clean jacoco:prepare-agent install jacoco:report
 ```
-This will generate a site\jacoco folder under target. To see generate reports go to index.html file, right click on it, copy path and paste it in your browser
+This will generate a site\jacoco folder under target. To see generate reports go to index.html file, right click on it, copy path and paste it in your browser. Coverage %82-85
+
 
 Run the spring boot app using the mvn wrapper command:
 ```bash
@@ -105,10 +107,16 @@ Or
 curl -v GET http://localhost:8080/mutantapp/v1/stats -H 'Content-Type: application/json'
 ```
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Response
+```bash
+< HTTP/1.1 200
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Date: Mon, 27 Jul 2020 16:51:02 GMT
+<
+{"countDnaHuman":3,"countDnaMutant":7,"ratio":2.3333333333333335}
+```
 
-Please make sure to update tests as appropriate.
+## Database - MongoDB
+I used a dedicated free cluster configured in [MongoDB](https://cloud.mongodb.com/) site
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
