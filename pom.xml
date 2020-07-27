@@ -12,7 +12,7 @@
 	<artifactId>mutantproject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mutantproject</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Mutant Application</description>
 
 	<properties>
 		<java.version>8</java.version>
