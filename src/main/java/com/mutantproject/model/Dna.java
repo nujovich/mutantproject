@@ -4,14 +4,13 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection = "dna_stats")
 public class Dna {
-    @MongoId
     @JsonProperty("_id")
-    private String id;
+    private ObjectId id;
     private List<String> dna;
     private boolean isMutant;
 
@@ -20,11 +19,15 @@ public class Dna {
         this.isMutant = isMutant;
     }
 
-    public String getId() {
+    public Dna() {
+        super();
+	}
+
+	public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

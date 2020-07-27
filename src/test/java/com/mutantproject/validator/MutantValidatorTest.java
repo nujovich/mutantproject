@@ -1,6 +1,7 @@
 package com.mutantproject.validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
@@ -39,18 +40,27 @@ public class MutantValidatorTest {
     private final List<String> dnaWrongInput = Arrays.asList("CCCT", "CTAT", "GGTT", "AANN");
     private final List<String> dnaNotNxNMatrix = Arrays.asList("CCGAGG", "CTGA", "CATT", "TTGGG");
 
-    private final String[] dna = { "TCCT", "CTAT", "GGTT", "AATT" };
+    private final String[] dnaMutant = { "TCCT", "CTAT", "GGTT", "AATT" };
+    private final String[] dnaHuman = { "CCCT", "CTAT", "GGTT", "AATT" };
 
-    private final List<String> dnaMutant = Arrays.asList(dna);
-    private List<String> listVertical;
-    private List<String> listDiagonal;
+    private final List<String> listDnaMutant = Arrays.asList(dnaMutant);
+    private final List<String> listDnaHuman = Arrays.asList(dnaHuman);
+    private List<String> listVerticalMutant;
+    private List<String> listDiagonalMutant;
+
+    private List<String> listVerticalHuman;
+    private List<String> listDiagonalHuman;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        listVertical = Arrays.asList("TCGA", "CTGA", "CATT", "TTTT");
-        listDiagonal = Arrays.asList("T", "CC", "GTC", "AGAT", "ATT", "TT", "T", "A", "GA",
+        listVerticalMutant = Arrays.asList("TCGA", "CTGA", "CATT", "TTTT");
+        listDiagonalMutant = Arrays.asList("T", "CC", "GTC", "AGAT", "ATT", "TT", "T", "A", "GA",
             "CGT", "TTTT", "CAT", "CT", "T");
+        listVerticalMutant = Arrays.asList("CCGA", "CTGA", "CATT", "TTTT");
+        listDiagonalHuman = Arrays.asList("C", "CC", "GTC", "AGAT", "ATT", "TT", "T", "A", "GA",
+            "CGT", "CTTT", "CAT", "CT", "T");
+        
     }
 
     @Test
@@ -86,25 +96,53 @@ public class MutantValidatorTest {
 
     @Test
     public void isMutant_withCorrectDnaInput_shouldReturnTrue() {
-        int length = dnaMutant.size();
+        int length = listDiagonalMutant.size();
         char[][] empty = new char[length][length];
-        char[][] matrixDna = { { 'T', 'C', 'C', 'T' }, { 'C', 'T', 'A', 'T' }, { 'G', 'G', 'T', 'T' },
-        { 'A', 'A', 'T', 'T' } };
+        char[][] matrixDna = { { 'T', 'C', 'C', 'T' }, 
+                                { 'C', 'T', 'A', 'T' }, 
+                                { 'G', 'G', 'T', 'T' },
+                                { 'A', 'A', 'T', 'T' } };
 
-        given(mutantEvaluatorMock.checkMatrixLength(dnaMutant)).willReturn(true);
-        matrixDna = matrixBuilderMock.buildMatrix(dna, empty, length);
-        given(listsBuilderMock.buildDiagonalListsFromMatrix(matrixDna)).willReturn(listDiagonal);
-        given(listsBuilderMock.buildVerticalListsFromMatrix(matrixDna)).willReturn(listVertical);
-        given(mutantEvaluatorMock.checkMutantGen(dnaMutant)).willReturn(0);
-        given(mutantEvaluatorMock.checkMutantGen(listVertical)).willReturn(1);
-        given(mutantEvaluatorMock.checkMutantGen(listDiagonal)).willReturn(1);
+        given(mutantEvaluatorMock.checkMatrixLength(listDnaMutant)).willReturn(true);
+        matrixDna = matrixBuilderMock.buildMatrix(dnaMutant, empty, length);
+        given(listsBuilderMock.buildDiagonalListsFromMatrix(matrixDna)).willReturn(listDiagonalMutant);
+        given(listsBuilderMock.buildVerticalListsFromMatrix(matrixDna)).willReturn(listVerticalMutant);
+        given(mutantEvaluatorMock.checkMutantGen(listDnaMutant)).willReturn(0);
+        given(mutantEvaluatorMock.checkMutantGen(listVerticalMutant)).willReturn(1);
+        given(mutantEvaluatorMock.checkMutantGen(listDiagonalMutant)).willReturn(1);
 
-        boolean isMutant = mutantValidatorMock.isMutant(dnaMutant);
+        boolean isMutant = mutantValidatorMock.isMutant(listDnaMutant);
 
-        assertEquals(0, mutantEvaluatorMock.checkMutantGen(dnaMutant));
-        assertEquals(1, mutantEvaluatorMock.checkMutantGen(listDiagonal));
-        assertEquals(1, mutantEvaluatorMock.checkMutantGen(listVertical));
+        assertEquals(0, mutantEvaluatorMock.checkMutantGen(listDnaMutant));
+        assertEquals(1, mutantEvaluatorMock.checkMutantGen(listDiagonalMutant));
+        assertEquals(1, mutantEvaluatorMock.checkMutantGen(listVerticalMutant));
         assertTrue(isMutant);
+        assertTrue(length > 0);
+    }
+
+    @Test
+    public void isMutant_withCorrectDnaInput_shouldReturnFalse() {
+        int length = listDnaHuman.size();
+        char[][] empty = new char[length][length];
+        char[][] matrixDna = { { 'C', 'C', 'C', 'T' }, 
+                                { 'C', 'T', 'A', 'T' }, 
+                                { 'G', 'G', 'T', 'T' },
+                                { 'A', 'A', 'T', 'T' } };
+
+        given(mutantEvaluatorMock.checkMatrixLength(listDnaHuman)).willReturn(true);
+        matrixDna = matrixBuilderMock.buildMatrix(dnaHuman, empty, length);
+        given(listsBuilderMock.buildDiagonalListsFromMatrix(matrixDna)).willReturn(listDiagonalHuman);
+        given(listsBuilderMock.buildVerticalListsFromMatrix(matrixDna)).willReturn(listVerticalHuman);
+        given(mutantEvaluatorMock.checkMutantGen(listDnaHuman)).willReturn(0);
+        given(mutantEvaluatorMock.checkMutantGen(listVerticalHuman)).willReturn(1);
+        given(mutantEvaluatorMock.checkMutantGen(listDiagonalHuman)).willReturn(0);
+
+        boolean isMutant = mutantValidatorMock.isMutant(listDnaHuman);
+
+        assertEquals(0, mutantEvaluatorMock.checkMutantGen(listDnaHuman));
+        assertEquals(0, mutantEvaluatorMock.checkMutantGen(listDiagonalHuman));
+        assertEquals(1, mutantEvaluatorMock.checkMutantGen(listVerticalHuman));
+        assertFalse(isMutant);
         assertTrue(length > 0);
 
     }

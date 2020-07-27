@@ -16,7 +16,7 @@ public class StatsController {
     private StatsServiceIF statsServiceIF;
     
     @GetMapping(value="/stats")
-    public StatsDto getStats() {
+    public StatsDto getStats() throws ArithmeticException, Exception {
         return statsServiceIF.getStats();
     }
 }

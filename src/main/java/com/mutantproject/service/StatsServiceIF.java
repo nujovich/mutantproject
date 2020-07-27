@@ -4,5 +4,5 @@ import com.mutantproject.dto.StatsDto;
 
 public interface StatsServiceIF {
     
-    public StatsDto getStats() throws ArithmeticException;
+    public StatsDto getStats() throws ArithmeticException, Exception;
 }
