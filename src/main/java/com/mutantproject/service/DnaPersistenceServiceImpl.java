@@ -28,8 +28,9 @@ public class DnaPersistenceServiceImpl implements DnaPersistenceServiceIF {
         FindIterable<Document> dnaInDb = dnaRepository.findDnaByArray(dna);
         if(Objects.isNull(dnaInDb.first()) || dnaInDb.first().isEmpty()) {
             logger.info("The dna doesn't exist in db. Persisting it.");
-            dnaRepository.save(dna);
-            logger.info("Persisted dna with id % " + dna.getId().toString());
+            dna = dnaRepository.save(dna);
+            logger.info("Persisted dna with id: " + dna.getId().toString() 
+            + " Current Thread: " + Thread.currentThread().getId());
         } else {
             logger.info("Already exists in db");
         }

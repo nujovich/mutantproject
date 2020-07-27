@@ -52,7 +52,7 @@ public class MutantValidator {
             result += mutantEvaluator.checkMutantGen(dnaVertical);
             result += mutantEvaluator.checkMutantGen(dnaDiagonal);
   
-            logger.info("Number of sequences found: %" + result);
+            logger.info("Number of sequences found: " + result);
             return (result > 1);
     
         }

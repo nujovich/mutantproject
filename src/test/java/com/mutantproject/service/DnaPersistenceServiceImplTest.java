@@ -39,8 +39,10 @@ public class DnaPersistenceServiceImplTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         dna = new Dna(listDna, true);
+        ObjectId id = new ObjectId();
+        dna.setId(id);
         doc = new Document();
-        doc.put("_id", new ObjectId());
+        doc.put("_id", id);
         doc.put("dna", listDna);
         doc.put("isMutant", true);
     }
